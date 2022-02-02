@@ -1,25 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import logo from "./logo.png";
+
+import styled from "styled-components";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
+import "./App.css";
+import VocabList from "./VocabList";
+import AddWord from "./AddWord";
+import Update from "./Update";
+import NotFound from "./NotFound";
+
+import { loadVocabFB } from "./redux/modules/vocab";
 
 function App() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // DOM 업데이트 (첫 렌더링) 후에 firebase에 있는 data를 한 번 불러온다.
+  useEffect(() => {
+    dispatch(loadVocabFB());
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <img
+        src={logo}
+        alt="Logo"
+        className="logo"
+        onClick={() => navigate("/")}
+      />
+
+      <Container>
+        <Routes>
+          <Route path="/" element={<VocabList />} />
+          <Route path="/word/add" element={<AddWord />} />
+          <Route path="/word/:vocab_id/edit" element={<Update />} />
+          <Route path="/*" element={<NotFound />} />
+        </Routes>
+      </Container>
     </div>
   );
 }
+
+const Container = styled.div`
+  margin-top: 5px;
+  padding: 15px 40px;
+`;
 
 export default App;
