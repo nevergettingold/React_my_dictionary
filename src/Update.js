@@ -9,8 +9,8 @@ const Update = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const vocab_lists = useSelector((state) => state.vocab.array);
-  const [original, setOriginal] = useState([]);
+  const vocab_lists = useSelector((state) => state.vocab.array); //기존 data 값을 받아오기 위해 사용
+  const [original, setOriginal] = useState([]); //기존 data 값을 받아오기 위해 사용
 
   const vocab_id = useParams();
   const wordRef = useRef("");
