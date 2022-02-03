@@ -51,7 +51,7 @@ const VocabList = (props) => {
             >
               <Vocab
                 style={{
-                  textDecoration: array.completed ? "line-through" : null,
+                  textDecoration: array.completed ? "line-through" : null, //취소선
                 }}
               >
                 {array.단어}
@@ -105,7 +105,8 @@ const VocabList = (props) => {
             </ItemStyle>
           );
         })}
-        {/* <AddView ref={ref}></AddView> */}
+        {/* Infinite Scroll 
+        <AddView ref={ref}></AddView> */}
       </VocabWrap>
       <IoAddCircle
         className="addButton"
@@ -115,7 +116,7 @@ const VocabList = (props) => {
   );
 };
 
-// const AddView = styled.div``;
+// const AddView = styled.div``; (Infinite Scroll)
 
 const VocabWrap = styled.div`
   overflow: hidden;

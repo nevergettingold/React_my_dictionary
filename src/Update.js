@@ -10,7 +10,7 @@ const Update = (props) => {
   const dispatch = useDispatch();
 
   const vocab_lists = useSelector((state) => state.vocab.array);
-  const [updates, setUpdate] = useState([]);
+  const [original, setOriginal] = useState([]);
 
   const vocab_id = useParams();
   const wordRef = useRef("");
@@ -34,12 +34,12 @@ const Update = (props) => {
   };
 
   useEffect(async () => {
-    const update_data = [];
+    const original_data = [];
     await vocab_lists.forEach((doc) => {
       if (doc.id === vocab_id.vocab_id) {
-        update_data.push(doc);
+        original_data.push(doc);
       }
-      setUpdate(update_data);
+      setOriginal(original_data);
     });
   }, [vocab_lists]); //empty array [] 넣어주면 reload시 렌더링 되지 않는다.
 
@@ -58,7 +58,7 @@ const Update = (props) => {
 
   return (
     <div>
-      {updates.map((update, i) => {
+      {original.map((o, i) => {
         return (
           <AddForm key={i}>
             <Title>단어 수정하기</Title>
@@ -68,7 +68,7 @@ const Update = (props) => {
               tpe="text"
               name="단어"
               ref={wordRef}
-              defaultValue={update.단어}
+              defaultValue={o.단어}
             />
 
             <AddCategory>병음</AddCategory>
@@ -76,7 +76,7 @@ const Update = (props) => {
               type="text"
               name="병음"
               ref={proRef}
-              defaultValue={update.병음}
+              defaultValue={o.병음}
             />
 
             <AddCategory>의미</AddCategory>
@@ -84,7 +84,7 @@ const Update = (props) => {
               type="text"
               name="의미"
               ref={defRef}
-              defaultValue={update.의미}
+              defaultValue={o.의미}
             />
 
             <AddCategory>예문</AddCategory>
@@ -92,7 +92,7 @@ const Update = (props) => {
               type="text"
               name="예문"
               ref={examRef}
-              defaultValue={update.예문}
+              defaultValue={o.예문}
             />
 
             <AddCategory>해석</AddCategory>
@@ -100,7 +100,7 @@ const Update = (props) => {
               type="text"
               name="해석"
               ref={transRef}
-              defaultValue={update.해석}
+              defaultValue={o.해석}
             />
             <SaveButton type="button" onClick={() => updateVocabList(vocab_id)}>
               {/* type을 submit으로 하면 form의 default action 으로 인해 'Form submission canceled because the form is not connected' 가 발생하기 때문에 button으로 수정 */}

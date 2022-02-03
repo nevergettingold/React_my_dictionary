@@ -31,13 +31,14 @@ const AddWord = (props) => {
     setFormValues({ ...formValues, [name]: value }); //[]로 key값을 주어 input의 name 값을 불러온다
   };
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); //submit 눌렀을 때 form이 바로 제출되는 방지한다
     setFormErrors(validate(formValues));
     setIsSubmit(true);
   };
   const validate = (values) => {
     const errors = {};
     const regexp = /\S/;
+    //input에 value가 없거나, 문자가 없을 때 검사
     if (!values.단어 || !regexp.test(values.단어)) {
       errors.단어 = "단어가 입력되지 않았습니다 :(";
     }
@@ -68,25 +69,18 @@ const AddWord = (props) => {
         completed: false,
       })
     );
-    // dispatch(createVocab(formValues));
   };
 
   useEffect(() => {
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       alert("단어가 추가되었습니다! :)");
-      navigate("/");
       addVocabList();
+      navigate("/");
     }
   });
 
   return (
     <div>
-      {/* {Object.keys(formErrors).length === 0 && isSubmit
-        ? (alert("단어가 추가되었습니다! :)"),
-          console.log(formValues),
-          navigate("/")) ---> 바뀐 state 값을 전달하고 다시 렌더링하기 전에 빠져나가서, useEffect 로 구현 필요
-        : null} */}
-
       <AddForm onSubmit={handleSubmit}>
         <Title>단어 추가하기</Title>
         <AddCategory>단어</AddCategory>
@@ -94,7 +88,6 @@ const AddWord = (props) => {
           type="text"
           name="단어"
           ref={wordRef}
-          // value={formValues.단어}
           onChange={handleChange}
         />
         <p>{formErrors.단어}</p>
@@ -103,7 +96,6 @@ const AddWord = (props) => {
           type="text"
           name="병음"
           ref={proRef}
-          // value={formValues.병음}
           onChange={handleChange}
         />
         <p>{formErrors.병음}</p>
@@ -112,7 +104,6 @@ const AddWord = (props) => {
           type="text"
           name="의미"
           ref={defRef}
-          // value={formValues.의미}
           onChange={handleChange}
         />
         <p>{formErrors.의미}</p>
@@ -121,7 +112,6 @@ const AddWord = (props) => {
           type="text"
           name="예문"
           ref={examRef}
-          // value={formValues.예문}
           onChange={handleChange}
         />
         <p>{formErrors.예문}</p>
@@ -130,7 +120,6 @@ const AddWord = (props) => {
           type="text"
           name="해석"
           ref={transRef}
-          // value={formValues.해석}
           onChange={handleChange}
         />
         <p>{formErrors.해석}</p>

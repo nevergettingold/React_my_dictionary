@@ -1,4 +1,3 @@
-// widgets.js
 import { db } from "../../utils/firebase";
 import {
   collection,
@@ -11,6 +10,7 @@ import {
   // limit,
   // query,
 } from "firebase/firestore";
+
 // Actions (type 지정)
 const LOAD = "vocab/LOAD";
 const CREATE = "vocab/CREATE";
@@ -134,8 +134,6 @@ export const completeVocabFB = (vocab_id, vocab_completed) => {
 // Reducer
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
-    // do reducer stuff
-
     case "vocab/LOAD": {
       return { array: action.vocab_list };
     }
@@ -150,7 +148,7 @@ export default function reducer(state = initialState, action = {}) {
         return parseInt(action.vocab_index) !== idx;
       });
 
-      return { ...state, array: new_vocab }; //그냥 new_vocab를 보내주면 안에 key 값이 없는 array만 보내주는 거다
+      return { ...state, array: new_vocab }; //그냥 new_vocab를 보내주면 안에 key 값이 없는 array만 보내주게 된다
     }
 
     case "vocab/UPDATE": {
